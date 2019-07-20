@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+  vars:
+    dvariable: the variablle is defined
+  tasks:
+    - debug:
+        msg: " {{ dvariable }} "
+      when: dvariable is not defined
+    - name: install httpd package
+      copy:
+        src: /root/anil.txt
+        dest: /root/anil.html
+      register: rpackage
+      ignore_errors: yes
+      
+    - debug:
+        msg: " {{ rpackage }} "
+    - debug:
+        msg: " package is not installed successfully "
+      when: rpackage is  failed
+    
+    - debug:
+        msg: " package is  installed successfully "
+      when: rpackage is success
+    
+    - debug:
+        msg: " package is  installed some other time "
+      when: rpackage is skipped
+    
+    - debug:
+        msg: " package is  installed successfully "
+      when: rpackage is succeeded
+    
+    - debug:
+        msg: " package is  installed successfully "
+      when: rpackage is changed

@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  tasks:
+    - name: gather info about target system
+      setup: 
+        gather_subset:
+          - '!all'
+      register: abc
+    - debug: msg="{{ abc }}"
+    - debug:
+        msg: >
+          --== Ansible jinja2 if statement ==--
+          {% if ansible_hostname == "ip-172-31-14-40" %}
+           this is redaht system
+           {% endif %}
